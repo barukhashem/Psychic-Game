@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Option One: Psychic Game (Basic)</title>
 </head>
 
 <body>
 
     <div id="game">
 
-        <h1><strong>
-                The Psychic Game
-        </h1></strong>
+        <h1><strong>The Psychic Game</h1></strong>
 
         <h3>Guess what letter I'm thinking of.</h3>
 
@@ -31,13 +29,6 @@
 
         <!--Your Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)-->
         <p>Your Guesses So Far: <span id="already-guessed">No guesses yet.</span></p>
-
-        <!--    <div>
-        <p id="wins-text"></p>
-        <p id="losses-text"></p>
-        <p id="guesses-left-text"></p>
-        <p id="already-guessed-text"></p>
-    </div>-->
 
     </div>
 
@@ -121,6 +112,10 @@
             // Display the wins/losses:       .
             winsText.textContent = "Wins: " + wins;
             lossesText.textContent = "Losses: " + losses;
+
+            // Display the guesses left/already guessed:       .
+            guessesLeftText.textContent = "Guesses Left: " + guessesLeft;
+            alreadyGuessedText.textContent = "Your Guesses So Far: " + alreadyGuessed;
         };
     </script>
 </body>
