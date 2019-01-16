@@ -45,35 +45,42 @@
         var losses = 0;
         var guessesLeft = 9;
         var alreadyGuessed = [];
+        var alphabet = generateAlphabet();
+        console.log(alphabet)
+
+        // Create computer's alphabet character pool:
+        function generateAlphabet() {
+            var arr = [];
+            for (var i = 97; i <= 122; i++) {
+                arr.push(String.fromCharCode(i));
+            }
+            return arr;
+        };
 
         // This function is run whenever the user presses a key:
         document.onkeyup = function (event) {
 
             // Determines which key was pressed.
             var userGuess = event.key;
+            console.log(userGuess);
+
+
+
 
             // Randomly chooses an option from the options array. This is the computer's generation of random characters:
             var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
-
-            // Create computer's alphabet character pool:
-            function generateAlphabet() {
-                var arr = [];
-                for (var i = 97; i <= 122; i++) {
-                    arr.push(String.fromCharCode(i));
-                }
-                return arr;
-            }
         }
 
         // This logic determines the outcome of the game (win/loss), and increments the appropriate number:
 
-        if (options.indexOf(userGuess) > -1) {
+        if (alreadyGuessed.indexOf(userGuess) > -1) {
 
             // If you guess the same letter as the computer, increment your wins variable.
             if ((userGuess === computerGuess)) {
                 wins++;
-                guessesLeft = 9;
-                alreadyGuessed = [];
+                guessesLeft--;
+                alreadyGuessedArr.push(userGuess);
+
             }
 
             // If you fail to guess the same letter as the computer, decrease your Guesses Left variable.
