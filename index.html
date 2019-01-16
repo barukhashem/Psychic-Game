@@ -11,7 +11,6 @@
 <body>
 
     <div id="game">
-
         <h1><strong>The Psychic Game</h1></strong>
 
         <h3>Guess what letter I'm thinking of.</h3>
@@ -19,13 +18,13 @@
         <!--INCLUDE: the following text on the page:-->
 
         <!--Wins: (# of times the user has guessed the letter correctly)-->
-        <p>Wins: <span id="win"></span></p>
+        <p>Wins: <span id="wins"></span></p>
 
         <!--Losses: (# of times the user has failed to guess the letter correctly after exhausting all guesses)-->
-        <p>Losses: <span id="loss"></span></p>
+        <p>Losses: <span id="losses"></span></p>
 
         <!--Guesses Left: (# of guesses left. This will update)-->
-        <p>Guesses Left: <span id="guesses-left"></span></p>
+        <p>Guesses Left: <span id="guesses-left">10</span></p>
 
         <!--Your Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)-->
         <p>Your Guesses So Far: <span id="already-guessed">No guesses yet.</span></p>
@@ -41,9 +40,12 @@
         // When the player loses, increase the Losses counter and restart the game without a page refresh (just like when the user wins).
 
         // Create variables to hold the number of wins and losses. They start at 0.
+
+        //GLOBAL SCOPE
+        // We start the game with a score of 0.
         var wins = 0;
         var losses = 0;
-        var guessesLeft = 9;
+        var guessesLeft = 10;
         var alreadyGuessed = [];
         var alphabet = generateAlphabet();
         console.log(alphabet)
@@ -57,73 +59,95 @@
             return arr;
         };
 
-        // This function is run whenever the user presses a key:
+        // Calling functions to start the game.
+
+        //EVENT LISTENER:
+        // When the user presses a key, it will run the following function...
         document.onkeyup = function (event) {
 
             // Determines which key was pressed.
             var userGuess = event.key;
             console.log(userGuess);
 
-
-
-
             // Randomly chooses an option from the options array. This is the computer's generation of random characters:
             var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
-        }
+            console.log(computerGuess);
 
-        // This logic determines the outcome of the game (win/loss), and increments the appropriate number:
 
-        if (alreadyGuessed.indexOf(userGuess) > -1) {
+            // This logic determines the outcome of the game (win/loss), and increments the appropriate number:
+
+            //if (alreadyGuessed.indexOf(guessesLeft) > -1) {
 
             // If you guess the same letter as the computer, increment your wins variable.
             if ((userGuess === computerGuess)) {
                 wins++;
-                guessesLeft--;
-                alreadyGuessedArr.push(userGuess);
-
+                document.getElementById("#wins").innerText = "" + wins;
+                // console.log("wins: " + wins);
+                //guessesLeft--;
+                alreadyGuessed.push(userGuess);
+                // console.log(alreadyGuessed);
             }
 
             // If you fail to guess the same letter as the computer, decrease your Guesses Left variable.
             if ((userGuess !== computerGuess)) {
                 guessesLeft--;
+                document.getElementById("#guesses-left").innerText = "" + guessesLeft;
+
                 //This function adds the user's guess to the list of guesses:
-                alreadyGuessedArr.push(userGuess);
+                alreadyGuessed.push(userGuess);
+                // console.log(alreadyGuessed);
             }
+        }
+        // If you fail to guess the same letter as the computer after exhausting all 10 guesses, increment your Losses variable.
+        if (guessesLeft === 0) {
+            losses++;
+            guessesLeft = 0;
+            alreadyGuessed = [];
+            document.getElementById("#losses").innerText = "" + losses;
+        }
 
-            // If you fail to guess the same letter as the computer after exhausting all 9 guesses, increment your Losses variable.
-            if (guessesLeft === 0) {
-                losses++;
-                guessesLeft = 9;
-                alreadyGuessed = [];
-            }
+        // var html =
+        //     "<h1><strong>The Psychic Game</h1><strong>" +
+        //     "<h3>Guess what letter I'm thinking of.</h3>" +
+        //     "<p>Wins: " + wins + "</p>" +
+        //     "<p>Losses: " + losses + "</p>" +
+        //     "<p>Guesses Left: " + guessesLeft + "</p>" +
+        //     "<p>Your Guesses So Far: " + alreadyGuessed.join(", ") + "</p>";
 
-
-            // Create variables that hold references to the places in the HTML where we want to display things.
-            var winsText = document.getElementById("wins-text");
-            var lossesText = document.getElementById("losses-text");
-            var guessesLeftText = document.getElementById("guesses-left-text");
-            var alreadyGuessedText = document.getElementById("already-guessed-text");
-
-            var alphabet = generateAlphabet();
-            var $alreadyGuessed = document.getElementById("already-guessed");
-            console.log($alreadyGuessed);
-
-            // Log user's guesses:
-            console.log("User Guess:", userGuess);
-            var alreadyGuessedArr = [];
+        // document.querySelector("#game").innerHTML = html;
 
 
 
-            $alreadyGuessed.textContent = alreadyGuessedArr.join(",   ");
 
-            // Display the wins/losses:       .
-            winsText.textContent = "Wins: " + wins;
-            lossesText.textContent = "Losses: " + losses;
 
-            // Display the guesses left/already guessed:       .
-            guessesLeftText.textContent = "Guesses Left: " + guessesLeft;
-            alreadyGuessedText.textContent = "Your Guesses So Far: " + alreadyGuessed;
-        };
+
+
+        // // Create variables that hold references to the places in the HTML where we want to display things.
+        // var winsText = document.getElementById("wins-text");
+        // var lossesText = document.getElementById("losses-text");
+        // var guessesLeftText = document.getElementById("guesses-left-text");
+        // var alreadyGuessedText = document.getElementById("already-guessed-text");
+
+        // var alphabet = generateAlphabet();
+        // var $alreadyGuessed = document.getElementById("already-guessed");
+        // console.log($alreadyGuessed);
+
+        // // Log user's guesses:
+        // console.log("User Guess:", userGuess);
+        // var alreadyGuessedArr = [];
+
+
+
+        // $alreadyGuessed.textContent = alreadyGuessedArr.join(",   ");
+
+        // // Display the wins/losses:       .
+        // winsText.textContent = "Wins: " + wins;
+        // lossesText.textContent = "Losses: " + losses;
+
+        // // Display the guesses left/already guessed:       .
+        // guessesLeftText.textContent = "Guesses Left: " + guessesLeft;
+        // alreadyGuessedText.textContent = "Your Guesses So Far: " + alreadyGuessed;
+        // };
     </script>
 </body>
 
