@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="game">
+
+        <h1><strong>
+                The Psychic Game
+        </h1></strong>
+
+        <h3>Guess what letter I'm thinking of.</h3>
+
+        <!--INCLUDE: the following text on the page:-->
+
+        <!--Wins: (# of times the user has guessed the letter correctly)-->
+        <p>Wins: <span id="win"></span></p>
+
+        <!--Losses: (# of times the user has failed to guess the letter correctly after exhausting all guesses)-->
+        <p>Losses: <span id="loss"></span></p>
+
+        <!--Guesses Left: (# of guesses left. This will update)-->
+        <p>Guesses Left: <span id="guesses-left"></span></p>
+
+        <!--Your Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)-->
+        <p>Your Guesses So Far: <span id="already-guessed">No guesses yet.</span></p>
+
+        <!--    <div>
+        <p id="wins-text"></p>
+        <p id="losses-text"></p>
+        <p id="guesses-left-text"></p>
+        <p id="already-guessed-text"></p>
+    </div>-->
+
+    </div>
+
+    <script type="text/javascript">
+
+        // GAME OBJECTIVE: The app randomly picks a letter, and the user has to guess which letter the app chose.
+
+        // When the player wins, increase the Wins counter and start the game over again (without refreshing the page).
+
+        // When the player loses, increase the Losses counter and restart the game without a page refresh (just like when the user wins).
+
+        // Create variables to hold the number of wins and losses. They start at 0.
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 9;
+        var alreadyGuessed = [];
+
+        // This function is run whenever the user presses a key:
+        document.onkeyup = function (event) {
+
+            // Determines which key was pressed.
+            var userGuess = event.key;
+
+            // Randomly chooses an option from the options array. This is the computer's generation of random characters:
+            var computerGuess = alphabet[Math.floor(Math.random() * alphabet.length)];
+
+            // Create computer's alphabet character pool:
+            function generateAlphabet() {
+                var arr = [];
+                for (var i = 97; i <= 122; i++) {
+                    arr.push(String.fromCharCode(i));
+                }
+                return arr;
+            }
+        }
+
+        // This logic determines the outcome of the game (win/loss), and increments the appropriate number:
+
+        if (options.indexOf(userGuess) > -1) {
+
+            // If you guess the same letter as the computer, increment your wins variable.
+            if ((userGuess === computerGuess)) {
+                wins++;
+                guessesLeft = 9;
+                alreadyGuessed = [];
+            }
+
+            // If you fail to guess the same letter as the computer, decrease your Guesses Left variable.
+            if ((userGuess !== computerGuess)) {
+                guessesLeft--;
+                //This function adds the user's guess to the list of guesses:
+                alreadyGuessedArr.push(userGuess);
+            }
+
+            // If you fail to guess the same letter as the computer after exhausting all 9 guesses, increment your Losses variable.
+            if (guessesLeft === 0) {
+                losses++;
+                guessesLeft = 9;
+                alreadyGuessed = [];
+            }
+
+
+            // Create variables that hold references to the places in the HTML where we want to display things.
+            var winsText = document.getElementById("wins-text");
+            var lossesText = document.getElementById("losses-text");
+            var guessesLeftText = document.getElementById("guesses-left-text");
+            var alreadyGuessedText = document.getElementById("already-guessed-text");
+
+            var alphabet = generateAlphabet();
+            var $alreadyGuessed = document.getElementById("already-guessed");
+            console.log($alreadyGuessed);
+
+            // Log user's guesses:
+            console.log("User Guess:", userGuess);
+            var alreadyGuessedArr = [];
+
+
+
+            $alreadyGuessed.textContent = alreadyGuessedArr.join(",   ");
+
+            // Display the wins/losses:       .
+            winsText.textContent = "Wins: " + wins;
+            lossesText.textContent = "Losses: " + losses;
+        };
+    </script>
+</body>
+
+</html>
