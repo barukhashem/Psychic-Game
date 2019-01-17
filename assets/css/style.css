@@ -1,0 +1,29 @@
+body {
+    background: whitesmoke;
+  }  
+  
+  h1 {
+    font-family: 'ZCOOL KuaiLe', cursive;
+    color: black;
+    text-align: center;
+    font-size: 125px;
+    line-height: 100px;
+}
+
+  h2 {
+    font-family: 'Shojumaru', cursive;
+    color: blue;
+    text-align: center;
+    font-size: 45px;
+    line-height: 80px;
+  }
+
+  p {
+    font-family: 'Orbitron', sans-serif;
+    color: red;
+    background: whitesmoke;
+    text-align: center;
+    font-size: 55px;
+    line-height: 80px;
+  }
+
